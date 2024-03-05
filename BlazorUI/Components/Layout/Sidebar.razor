@@ -1,0 +1,33 @@
+﻿<div class="@Class">
+    <nav class="d-flex flex-column px-2 py-2">
+        <a class="navbar-brand" href="#">
+            <img src="img/Blazor.png" width="30" height="30" class="mx-2" />
+            Blazor App
+        </a>
+
+        <NavLink class="nav-link" Match="NavLinkMatch.All" href="">
+            <i class="bi bi-house-door h5 pe-2"></i>
+            Home
+        </NavLink>
+        <NavLink class="nav-link" Match="NavLinkMatch.All" href="Counter">
+            <i class="bi bi-plus-circle h5 pe-2"></i>
+            Counter
+        </NavLink>
+        <NavLink class="nav-link" Match="NavLinkMatch.All" href="SpinDemo">
+            <i class="bi bi-arrow-repeat h5 pe-2"></i>
+            Spinner Demo
+        </NavLink>
+        <NavLink class="nav-link" Match="NavLinkMatch.All" href="Weather">
+            <i class="bi bi-cloud-lightning-rain-fill h5 pe-2"></i>
+            Weather
+        </NavLink>
+        <div class="mt-auto d-flex justify-content-center">
+            <i class="theme-switch mx-2 text-light fs-4 bi bi-sun-fill"></i>
+        </div>
+    </nav>
+</div>
+
+@code {
+    [Parameter]
+    public string Class { get; set; } = "";
+}

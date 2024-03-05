@@ -1,0 +1,48 @@
+﻿/* Navbar styling */
+.navbar {
+    background-color: #1F2937;
+    min-width: 350px;
+}
+
+
+/* Sidebar brand */
+.navbar-brand {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1.50rem 0.5rem 0;
+}
+
+/* Space out the navigation items a bit */
+::deep .nav-item {
+    margin: 0px 2px;
+}
+
+/* Style navigation links like buttons */
+::deep .nav-link {
+    border-radius: 0.375rem;
+    color: white;
+    transition: transform 0.25s cubic-bezier(.62,1.95,.61,.63), background 1.00s cubic-bezier(.15,.76,.33,1);
+    padding: 0.5rem 1rem;
+    margin: 0.25rem 0;
+    white-space: nowrap;
+}
+
+    /* Set active navigation links slightly yellow and transparent white background*/
+    ::deep .nav-link.active {
+        color: #f6fdca;
+        background-color: #ffffff26;
+    }
+
+        /* Transition/scale the navigation link being pressed like a button */
+        ::deep .nav-link:active, ::deep .nav-link.active:active {
+            transform: scale(0.95);
+            transition-duration: 0.05s;
+            transition-timing-function: cubic-bezier(.06,.89,.57,1.04);
+        }
+
+    /* Off-white semi-transparent hover effect for nav-link */
+    ::deep .nav-link:hover {
+        background-color: #ffffff26;
+    }

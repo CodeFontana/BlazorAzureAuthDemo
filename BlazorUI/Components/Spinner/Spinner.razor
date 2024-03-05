@@ -1,0 +1,46 @@
+﻿<div class="@_spinnerContainerClass">
+    @if (_spinType == 0)
+    {
+        <Spinner_Wave />
+    }
+    else if (_spinType == 1)
+    {
+        <Spinner_ThreeDots />
+    }
+    else if (_spinType == 2)
+    {
+        <Spinner_FadingCircle />
+    }
+    else
+    {
+        <Spinner_Wave />
+    }
+</div>
+
+@code
+{
+    [CascadingParameter(Name="LayoutName")]
+    public required string LayoutName { get; set; }
+
+    private Random _rndGen = new();
+    private int _spinType = 0;
+    private string _spinnerContainerClass = "spinner-container-main-layout";
+
+    protected override void OnInitialized()
+    {
+        _spinType = _rndGen.Next(3);
+
+        if (LayoutName == "MainLayout")
+        {
+            _spinnerContainerClass = "spinner-container-main-layout";
+        }
+        else if (LayoutName == "SidebarLayout")
+        {
+            _spinnerContainerClass = "spinner-container-sidebar-layout";
+        }
+        else
+        {
+            _spinnerContainerClass = "spinner-container-main-layout";
+        }
+    }
+}

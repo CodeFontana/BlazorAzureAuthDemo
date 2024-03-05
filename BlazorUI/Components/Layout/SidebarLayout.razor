@@ -1,0 +1,39 @@
+﻿@inherits LayoutComponentBase
+
+<CascadingValue Name="LayoutName" Value="@LayoutName">
+    <div class="d-flex">
+        
+        <Sidebar />
+
+        <div id="sidebar-expanded" class="offcanvas offcanvas-start" tabindex="-1">
+            <Sidebar Class="sidebar-offcanvas" />
+        </div>
+
+        <nav id="topbar" class="navbar navbar-dark d-flex align-items-center d-md-none fixed-top px-2">
+            <button type="button" class="hamburger-button" title="Show navigation menu" data-bs-toggle="offcanvas" data-bs-target="#sidebar-expanded">
+                <div class="hamburger rounded-lg">
+                    <div class="opacity-75">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </button>
+            <i class="theme-switch mx-2 text-light fs-4 bi bi-sun-fill"></i>
+        </nav>
+        <main class="container-fluid mt-3 mt-md-0 mb-3 pt-5 pt-md-0">
+            @Body
+        </main>
+        <div id="blazor-error-ui">
+            An unhandled error has occurred.
+            <a href="" class="reload">Reload</a>
+            <a class="dismiss">🗙</a>
+        </div>
+    </div>
+</CascadingValue>
+
+<PageScript Src="./Components/Layout/SidebarLayout.razor.js" />
+
+@code {
+    private const string LayoutName = "SidebarLayout";
+}

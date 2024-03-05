@@ -1,0 +1,36 @@
+﻿@page "/counter/{reset:bool?}"
+@inject NavigationManager NavMan
+
+<PageTitle>Counter - BlazorUI</PageTitle>
+
+<h1>Counter</h1>
+
+<p>Current count: @CurrentCount</p>
+
+<form class="d-inline" data-enhance method="post" @formname="counterForm" @onsubmit="IncrementCount">
+    <AntiforgeryToken />
+    <input type="number" @bind-value="@CurrentCount" name="CurrentCount" hidden />
+    <button class="btn btn-primary" type="submit">Click me</button>
+    <a class="btn btn-secondary" href="/counter/true">Reset</a>
+</form>
+
+@code {
+    [Parameter]
+    public bool Reset { get; set; }
+
+    [SupplyParameterFromForm]
+    public int CurrentCount { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (Reset)
+        {
+            NavMan.NavigateTo("/counter");
+        }
+    }
+
+    private void IncrementCount()
+    {
+        CurrentCount += 1;
+    }
+}

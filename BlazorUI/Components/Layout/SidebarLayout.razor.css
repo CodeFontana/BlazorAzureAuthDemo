@@ -1,0 +1,74 @@
+﻿/* Set background color and min-width for top navigation bar */
+#topbar {
+    background-color: #1F2937;
+    min-width: 350px;
+}
+
+/* Custom hamburger for topbar */
+.hamburger {
+    background-color: #475569;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+}
+
+    .hamburger:hover {
+        background-color: white;
+    }
+
+        .hamburger:hover .line {
+            background-color: #1F2937;
+        }
+
+.hamburger-button {
+    background-color: transparent;
+    margin: -0.5rem 0.5rem -0.5rem -0.5rem;
+    padding: 0.75rem;
+    cursor: pointer;
+    border: 0;
+}
+
+/* Lines within the custom hamburger */
+.line {
+    width: 1.5rem;
+    height: 0.25rem;
+    background-color: white;
+    margin: 0.25rem;
+}
+
+/* Set width of navigation sidebar */
+.offcanvas {
+    width: 16rem;
+}
+
+/* Sidebar transformation when hamburger is pressed */
+::deep .sidebar-offcanvas nav {
+    transform: translateX(0);
+}
+
+@media (min-width: 768px) {
+
+    /* Make room for the side navigation bar */
+    main {
+        margin-left: 16rem;
+    }
+}
+
+/* Standard blazor error ui */
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }

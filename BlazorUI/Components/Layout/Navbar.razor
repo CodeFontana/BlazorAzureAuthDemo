@@ -1,0 +1,36 @@
+﻿<nav class="navbar navbar-dark navbar-expand-md d-flex fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="img/Blazor.png" width="30" height="30" class="mx-2" />
+            Blazor
+        </a>
+
+        <div class="d-flex align-items-center">
+            <i class="theme-switch d-md-none mx-2 text-light fs-4 bi bi-sun-fill"></i>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+
+        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-0">
+                <li class="nav-item">
+                    <NavLink class="nav-link" Match="NavLinkMatch.All" href="">Home</NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" Match="NavLinkMatch.All" href="Counter">Counter</NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" Match="NavLinkMatch.All" href="SpinDemo">Spinner Demo</NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" Match="NavLinkMatch.All" href="Weather">Weather</NavLink>
+                </li>
+            </ul>
+        </div>
+
+        <i class="theme-switch d-none d-md-inline mx-2 text-light fs-4 bi bi-sun-fill"></i>
+    </div>
+</nav>
+
+<PageScript Src="./Components/Layout/Navbar.razor.js" />
