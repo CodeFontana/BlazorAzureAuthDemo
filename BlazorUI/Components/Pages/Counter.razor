@@ -5,14 +5,22 @@
 
 <h1>Counter</h1>
 
-<p>Current count: @CurrentCount</p>
+<AuthorizeView>
+    <Authorized>
+        <p>Current count: @CurrentCount</p>
 
-<form class="d-inline" data-enhance method="post" @formname="counterForm" @onsubmit="IncrementCount">
-    <AntiforgeryToken />
-    <input type="number" @bind-value="@CurrentCount" name="CurrentCount" hidden />
-    <button class="btn btn-primary" type="submit">Click me</button>
-    <a class="btn btn-secondary" href="/counter/true">Reset</a>
-</form>
+        <form class="d-inline" data-enhance method="post" @formname="counterForm" @onsubmit="IncrementCount">
+            <AntiforgeryToken />
+            <input type="number" @bind-value="@CurrentCount" name="CurrentCount" hidden />
+            <button class="btn btn-primary" type="submit">Click me</button>
+            <a class="btn btn-secondary" href="/counter/true">Reset</a>
+        </form>
+    </Authorized>
+    <NotAuthorized>
+        <NotAuthorized />
+    </NotAuthorized>
+</AuthorizeView>
+
 
 @code {
     [Parameter]

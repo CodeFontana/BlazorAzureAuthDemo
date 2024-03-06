@@ -1,0 +1,20 @@
+﻿@inject NavigationManager Nav
+@attribute [AllowAnonymous]
+
+<div class="container my-3">
+    <h3 class="text-center">You are not authorized to view this page.</h3>
+    <hr />
+    <form data-enhance method="post" @formname="RedirectForm" @onsubmit="HandleSubmit">
+        <AntiforgeryToken />
+        <button class="btn btn-primary d-flex mx-auto" type="submit">Go Home</button>
+    </form>
+</div>
+
+@code {
+    [Parameter] public string? ReturnUrl { get; set; }
+
+    private void HandleSubmit()
+    {
+        Nav.NavigateTo(ReturnUrl ?? "");
+    }
+}

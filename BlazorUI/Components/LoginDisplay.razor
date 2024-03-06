@@ -1,0 +1,38 @@
+﻿@inject NavigationManager NavMan
+@implements IDisposable
+
+<div class="mx-2">
+    <AuthorizeView>
+        <Authorized>
+            <form action="authentication/logout" method="post">
+                <AntiforgeryToken />
+                <input type="hidden" name="returnUrl" value="@_currentUrl" />
+                <button type="submit" class="nav-link">Logout</button>
+            </form>
+        </Authorized>
+        <NotAuthorized>
+            <a class="nav-link" href="@($"authentication/login?returnUrl={_currentUrl}")">Login</a>
+        </NotAuthorized>
+    </AuthorizeView>
+</div>
+
+@code {
+    private string? _currentUrl;
+
+    protected override void OnInitialized()
+    {
+        _currentUrl = NavMan.ToBaseRelativePath(NavMan.Uri);
+        NavMan.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        _currentUrl = NavMan.ToBaseRelativePath(e.Location);
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        NavMan.LocationChanged -= OnLocationChanged;
+    }
+}
