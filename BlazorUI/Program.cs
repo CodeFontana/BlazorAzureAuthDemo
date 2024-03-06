@@ -4,7 +4,6 @@ using BlazorUI.Interfaces;
 using BlazorUI.Services;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.UI;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +15,6 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
         builder.Configuration.Bind("AzureAd", options);
         options.TokenValidationParameters.ValidateIssuer = false;
     });
-builder.Services.AddControllersWithViews().AddMicrosoftIdentityUI();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -31,7 +29,6 @@ if (app.Environment.IsDevelopment() == false)
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
-app.MapControllers();
 app.MapGroup("/authentication").MapLoginAndLogout();
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 app.Run();
