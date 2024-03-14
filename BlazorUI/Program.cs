@@ -9,7 +9,6 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(options =>
     {
         builder.Configuration.Bind("AzureAd", options);
-        options.TokenValidationParameters.ValidateIssuer = false;
     });
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddRazorComponents()
