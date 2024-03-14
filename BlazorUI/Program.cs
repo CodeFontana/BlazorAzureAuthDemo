@@ -1,14 +1,10 @@
 using BlazorUI;
 using BlazorUI.Components;
-using BlazorUI.Interfaces;
-using BlazorUI.Services;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<ICookieService, CookieService>();
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(options =>
     {
