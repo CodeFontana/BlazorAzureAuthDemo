@@ -6,13 +6,12 @@ using Microsoft.Identity.Web;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApp(options =>
-    {
-        builder.Configuration.Bind("AzureAd", options);
-    });
+    .AddMicrosoftIdentityWebApp(
+        builder.Configuration.GetSection("EntraId"));
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents()
+    .AddMicrosoftIdentityConsentHandler();
 WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment() == false)
