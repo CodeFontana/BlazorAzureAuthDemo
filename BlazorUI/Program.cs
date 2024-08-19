@@ -22,6 +22,8 @@ if (app.Environment.IsDevelopment() == false)
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseAntiforgery();
 app.MapGroup("/authentication").MapLoginAndLogout();
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
