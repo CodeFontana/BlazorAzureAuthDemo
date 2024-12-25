@@ -1,7 +1,13 @@
-﻿<Router AppAssembly="typeof(Program).Assembly">
-    <Found Context="routeData">
-        @* <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" /> *@            @* Topbar layout *@
-        <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.SidebarLayout)" />    @* Sidebar layout *@
-        <FocusOnNavigate RouteData="routeData" Selector="h1" />
-    </Found>
-</Router>
+﻿<CascadingAuthenticationState>
+    <Router AppAssembly="typeof(Program).Assembly">
+        <Found Context="routeData">
+            @* <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" /> *@
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(Layout.SidebarLayout)">
+                <NotAuthorized>
+                    <NotAuthorized />
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="routeData" Selector="h1" />
+        </Found>
+    </Router>
+</CascadingAuthenticationState>

@@ -1,0 +1,46 @@
+﻿@page "/countertwo/{reset:bool?}"
+@inject NavigationManager NavMan
+@inject IUserRolesService UserRolesService
+
+<PageTitle>CounterTwo - BlazorUI</PageTitle>
+
+<h1>Counter Two</h1>
+
+<p>Current count: @CurrentCount</p>
+
+<form class="d-inline" data-enhance method="post" @formname="counterForm" @onsubmit="IncrementCount">
+    <AntiforgeryToken />
+    <input type="number" @bind-value="@CurrentCount" name="CurrentCount" hidden />
+    
+    @if (UserRolesService.IsInRole("Counte0Two.Access"))
+    {
+        <button class="btn btn-primary" type="submit">Click me</button>
+        <a class="btn btn-secondary" href="/countertwo/true">Reset</a>
+    }
+    else
+    {
+        <p>You do not have permission to increment or reset the counter.</p>
+    }
+</form>
+
+
+@code {
+    [Parameter]
+    public bool Reset { get; set; }
+
+    [SupplyParameterFromForm]
+    public int CurrentCount { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (Reset)
+        {
+            NavMan.NavigateTo("/countertwo");
+        }
+    }
+
+    private void IncrementCount()
+    {
+        CurrentCount += 1;
+    }
+}
