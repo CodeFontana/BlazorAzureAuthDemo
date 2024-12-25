@@ -1,0 +1,47 @@
+﻿@page "/counterthree/{reset:bool?}"
+@inject NavigationManager NavMan
+@inject IUserRolesService UserRolesService
+
+<PageTitle>Counter Three - BlazorUI</PageTitle>
+
+<h1>Counter Three</h1>
+
+<p>Current count: @CurrentCount</p>
+
+<form class="d-inline" data-enhance method="post" @formname="counterForm" @onsubmit="IncrementCount">
+    <AntiforgeryToken />
+    <input type="number" @bind-value="@CurrentCount" name="CurrentCount" hidden />
+    
+    <button class="btn btn-primary" type="submit" disabled="@_isDisabled">Click me</button>
+    <a class="btn btn-secondary @(_isDisabled ? "disabled" : "")" href="@(_isDisabled ? "#" : "/counterthree/true")">Reset</a>
+</form>
+
+@if (_isDisabled)
+{
+    <p>You do not have permission to increment or reset the counter.</p>
+}
+
+@code {
+    [Parameter]
+    public bool Reset { get; set; }
+
+    [SupplyParameterFromForm]
+    public int CurrentCount { get; set; }
+
+    private bool _isDisabled;
+
+    protected override void OnInitialized()
+    {
+        _isDisabled = !UserRolesService.IsInRole("CounterThree.Access");
+        
+        if (Reset)
+        {
+            NavMan.NavigateTo("/counterthree");
+        }
+    }
+
+    private void IncrementCount()
+    {
+        CurrentCount += 1;
+    }
+}
