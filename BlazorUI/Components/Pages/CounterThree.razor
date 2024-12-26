@@ -13,7 +13,7 @@
     <input type="number" @bind-value="@CurrentCount" name="CurrentCount" hidden />
     
     <button class="btn btn-primary" type="submit" disabled="@_isDisabled">Click me</button>
-    <a class="btn btn-secondary @(_isDisabled ? "disabled" : "")" href="@(_isDisabled ? "#" : "/counterthree/true")">Reset</a>
+    <a class="btn btn-secondary" href="@(_resetUrl)">Reset</a>
 </form>
 
 @if (_isDisabled)
@@ -29,6 +29,8 @@
     public int CurrentCount { get; set; }
 
     private bool _isDisabled;
+
+    private string _resetUrl => _isDisabled ? "#" : "/counterthree/true";
 
     protected override void OnInitialized()
     {
