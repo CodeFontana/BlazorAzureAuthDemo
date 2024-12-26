@@ -12,7 +12,7 @@
     <AntiforgeryToken />
     <input type="number" @bind-value="@CurrentCount" name="CurrentCount" hidden />
     
-    @if (UserRolesService.IsInRole("Counte0Two.Access"))
+    @if (UserRolesService.IsInRole("CounterTwo.Access"))
     {
         <button class="btn btn-primary" type="submit">Click me</button>
         <a class="btn btn-secondary" href="/countertwo/true">Reset</a>
