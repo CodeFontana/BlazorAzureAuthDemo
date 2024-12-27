@@ -39,16 +39,12 @@ public static class JwtParser
         {
             string[]? parsedRoles = roles?.ToString()?.Trim().TrimStart('[').TrimEnd(']').Split(',');
 
-            if (parsedRoles?.Length > 1)
+            if (parsedRoles?.Length > 0)
             {
                 foreach (var parsedRole in parsedRoles)
                 {
-                    claims.Add(new Claim(ClaimTypes.Role, parsedRole.Trim('"')));
+                    claims.Add(new Claim(ClaimTypes.Role, parsedRole.Trim('\"')));
                 }
-            }
-            else
-            {
-                claims.Add(new Claim(ClaimTypes.Role, parsedRoles?[0] ?? ""));
             }
 
             keyValuePairs.Remove(ClaimTypes.Role);
