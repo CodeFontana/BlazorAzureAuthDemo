@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>4e815f4f-61fa-4b3b-be4a-acc735c3f798</UserSecretsId>
@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="BlazorPageScript" Version="1.0.0" />
-    <PackageReference Include="Microsoft.Identity.Web.UI" Version="3.4.0" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="3.7.0" />
   </ItemGroup>
 
 </Project>
