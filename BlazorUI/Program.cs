@@ -118,10 +118,14 @@ if (app.Environment.IsDevelopment() == false)
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseAntiforgery();
+
 app.AddOidcAuthEndpoints();
+
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AllowAnonymous();
