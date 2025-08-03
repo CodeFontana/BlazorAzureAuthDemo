@@ -50,6 +50,7 @@ builder.Services.AddAuthentication(options =>
     options.CallbackPath = entraConfig["CallbackPath"];
     options.ResponseType = "id_token";
     options.SaveTokens = false;
+    options.SignedOutRedirectUri = "/";
     options.TokenValidationParameters = new TokenValidationParameters
     {
         NameClaimType = "preferred_username",
