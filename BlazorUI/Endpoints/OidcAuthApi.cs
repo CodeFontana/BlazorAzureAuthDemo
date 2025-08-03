@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorUI.Endpoints;
 
@@ -12,11 +11,13 @@ internal static class OidcAuthApi
         RouteGroupBuilder group = endpoints.MapGroup("/authentication");
 
         group.MapGet("/login", (string? returnUrl) => 
-            TypedResults.Challenge(GetAuthProperties(returnUrl))).AllowAnonymous();
+            TypedResults.Challenge(GetAuthProperties(returnUrl)))
+            .AllowAnonymous();
 
         group.MapGet("/logout", () => 
             TypedResults.SignOut(GetAuthProperties(""),
-            [CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme]));
+            [CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme]))
+            .DisableAntiforgery();
 
         return group;
     }
