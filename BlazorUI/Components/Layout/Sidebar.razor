@@ -1,5 +1,5 @@
-﻿@inject NavigationManager NavMan
-@implements IDisposable
+﻿@inject IAuthenticationService AuthService
+@inject NavigationManager NavMan
 
 <div class="@Class">
     <nav class="d-flex flex-column px-2 py-2">
@@ -36,9 +36,8 @@
             <div class="d-flex align-items-center justify-content-center">
                 <AuthorizeView>
                     <Authorized>
-                        <form class="w-100" action="authentication/logout" method="post">
+                        <form class="w-100 text-light" method="post" @formname="Sidebar_Logout" @onsubmit="() => HandleLogoutAsync()">
                             <AntiforgeryToken />
-                            <input type="hidden" name="returnUrl" value="@_currentUrl" />
                             <button type="submit" class="nav-link d-flex justify-start align-items-center w-100">
                                 <i class="bi bi-box-arrow-in-left text-light h5 my-0 pe-2"></i>
                                 Logout
@@ -46,12 +45,13 @@
                         </form>
                     </Authorized>
                     <NotAuthorized>
-                        <div class="w-100">
-                            <NavLink class="nav-link d-flex align-items-center" Match="NavLinkMatch.All" href="@($"authentication/login?returnUrl={_currentUrl}")">
-                                <i class="bi bi-box-arrow-in-right text-light h5 my-0 pe-2"></i>
+                        <form class="w-100 text-light" method="post" @formname="Sidebar_Login" @onsubmit="HandleLogin">
+                            <AntiforgeryToken />
+                            <button class="nav-link d-flex justify-start align-items-center w-100" type="submit">
+                                <i class="bi bi-box-arrow-in-right h5 my-0 pe-2"></i>
                                 Login
-                            </NavLink>
-                        </div>
+                            </button>
+                        </form>
                     </NotAuthorized>
                 </AuthorizeView>
                 <i class="theme-switch mx-2 text-light fs-4 bi bi-sun-fill"></i>
@@ -64,22 +64,13 @@
     [Parameter]
     public string Class { get; set; } = "";
 
-    private string? _currentUrl;
-
-    protected override void OnInitialized()
+    private void HandleLogin()
     {
-        _currentUrl = NavMan.ToBaseRelativePath(NavMan.Uri);
-        NavMan.LocationChanged += OnLocationChanged;
+        AuthService.Login();
     }
 
-    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    private async Task HandleLogoutAsync()
     {
-        _currentUrl = NavMan.ToBaseRelativePath(e.Location);
-        StateHasChanged();
-    }
-
-    public void Dispose()
-    {
-        NavMan.LocationChanged -= OnLocationChanged;
+        await AuthService.LogoutAsync();
     }
 }

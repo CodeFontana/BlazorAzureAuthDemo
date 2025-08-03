@@ -1,38 +1,37 @@
-﻿@inject NavigationManager NavMan
-@implements IDisposable
+﻿@inject IAuthenticationService AuthService
+@inject NavigationManager NavMan
 
 <div class="mx-2">
     <AuthorizeView>
         <Authorized>
-            <form action="authentication/logout" method="post">
+            <form method="post" @formname="Navbar_Logout" @onsubmit="() => HandleLogoutAsync()">
                 <AntiforgeryToken />
-                <input type="hidden" name="returnUrl" value="@_currentUrl" />
-                <button type="submit" class="nav-link">Logout</button>
+                <button class="nav-link d-flex align-items-center flex-fill" type="submit">
+                    <i class="bi bi-box-arrow-in-left fs-6 me-2 my-0"></i>
+                    Logout
+                </button>
             </form>
         </Authorized>
         <NotAuthorized>
-            <a class="nav-link" href="@($"authentication/login?returnUrl={_currentUrl}")">Login</a>
+            <form class="d-flex flex-fill text-light" method="post" @formname="Navbar_Login" @onsubmit="HandleLogin">
+                <AntiforgeryToken />
+                <button class="nav-link d-flex align-items-center flex-fill" type="submit">
+                    <i class="bi bi-box-arrow-in-right fs-6 me-2 my-0"></i>
+                    Login
+                </button>
+            </form>
         </NotAuthorized>
     </AuthorizeView>
 </div>
 
 @code {
-    private string? _currentUrl;
-
-    protected override void OnInitialized()
+    private void HandleLogin()
     {
-        _currentUrl = NavMan.ToBaseRelativePath(NavMan.Uri);
-        NavMan.LocationChanged += OnLocationChanged;
+        AuthService.Login();
     }
 
-    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    private async Task HandleLogoutAsync()
     {
-        _currentUrl = NavMan.ToBaseRelativePath(e.Location);
-        StateHasChanged();
-    }
-
-    public void Dispose()
-    {
-        NavMan.LocationChanged -= OnLocationChanged;
+        await AuthService.LogoutAsync();
     }
 }

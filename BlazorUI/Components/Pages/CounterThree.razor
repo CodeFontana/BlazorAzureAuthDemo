@@ -13,7 +13,11 @@
     <input type="number" @bind-value="@CurrentCount" name="CurrentCount" hidden />
     
     <button class="btn btn-primary" type="submit" disabled="@_isDisabled">Click me</button>
-    <a class="btn btn-secondary" href="@(_resetUrl)">Reset</a>
+    <a class="btn btn-secondary" 
+       href="@(_isDisabled ? "#" : _resetUrl)" 
+       style="@(_isDisabled ? "pointer-events: none; opacity: 0.65;" : "")">
+        Reset
+    </a>
 </form>
 
 @if (_isDisabled)

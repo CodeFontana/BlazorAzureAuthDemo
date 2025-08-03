@@ -3,18 +3,19 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BlazorUI;
+namespace BlazorUI.Endpoints;
 
-internal static class LoginLogoutEndpointRouteBuilderExtensions
+internal static class OidcAuthApi
 {
-    internal static IEndpointConventionBuilder MapLoginAndLogout(this IEndpointRouteBuilder endpoints)
+    internal static IEndpointConventionBuilder AddOidcAuthEndpoints(this IEndpointRouteBuilder endpoints)
     {
-        RouteGroupBuilder group = endpoints.MapGroup("");
+        RouteGroupBuilder group = endpoints.MapGroup("/authentication");
 
-        group.MapGet("/login", (string? returnUrl) => TypedResults.Challenge(GetAuthProperties(returnUrl)))
-            .AllowAnonymous();
+        group.MapGet("/login", (string? returnUrl) => 
+            TypedResults.Challenge(GetAuthProperties(returnUrl))).AllowAnonymous();
 
-        group.MapPost("/logout", ([FromForm] string? returnUrl) => TypedResults.SignOut(GetAuthProperties(returnUrl),
+        group.MapGet("/logout", () => 
+            TypedResults.SignOut(GetAuthProperties(""),
             [CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme]));
 
         return group;

@@ -1,4 +1,7 @@
-﻿using System.Text.Json;
+﻿using System.Security.Claims;
+using System.Text.Json;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace BlazorUI.Services;
 
@@ -12,6 +15,22 @@ internal sealed class CookieService : ICookieService
     {
         _logger = logger;
         _httpContextAccessor = httpContextAccessor;
+    }
+
+    public async Task SignInAsync(ClaimsPrincipal principal, AuthenticationProperties properties)
+    {
+        HttpContext? httpContext = _httpContextAccessor.HttpContext
+            ?? throw new InvalidOperationException("HttpContext is not available.");
+
+        await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, properties);
+    }
+
+    public async Task SignOutAsync()
+    {
+        HttpContext? httpContext = _httpContextAccessor.HttpContext
+            ?? throw new InvalidOperationException("HttpContext is not available.");
+
+        await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     }
 
     public void SetCookie<T>(string key, T value, DateTimeOffset? expiry)
