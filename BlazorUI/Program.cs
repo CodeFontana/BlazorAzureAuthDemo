@@ -24,7 +24,7 @@ builder.Services.AddAuthentication(options =>
     options.Cookie.Name = "BlazorAzureAuthDemo";
     options.Cookie.HttpOnly = true;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-    options.Cookie.SameSite = SameSiteMode.Strict;
+    options.Cookie.SameSite = SameSiteMode.Lax;
     options.SlidingExpiration = false;
     options.Events = new CookieAuthenticationEvents
     {
