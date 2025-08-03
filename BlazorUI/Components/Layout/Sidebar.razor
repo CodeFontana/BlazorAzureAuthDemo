@@ -36,7 +36,7 @@
             <div class="d-flex align-items-center justify-content-center">
                 <AuthorizeView>
                     <Authorized>
-                        <form class="w-100 text-light" method="post" @formname="Sidebar_Logout" @onsubmit="() => HandleLogoutAsync()">
+                        <form class="w-100 text-light" method="post" @formname="@($"Sidebar_Logout_{@FormSuffix}")" @onsubmit="() => HandleLogoutAsync()">
                             <AntiforgeryToken />
                             <button type="submit" class="nav-link d-flex justify-start align-items-center w-100">
                                 <i class="bi bi-box-arrow-in-left text-light h5 my-0 pe-2"></i>
@@ -45,7 +45,7 @@
                         </form>
                     </Authorized>
                     <NotAuthorized>
-                        <form class="w-100 text-light" method="post" @formname="Sidebar_Login" @onsubmit="HandleLogin">
+                        <form class="w-100 text-light" method="post" @formname="@($"Sidebar_Login_{@FormSuffix}")" @onsubmit="HandleLogin">
                             <AntiforgeryToken />
                             <button class="nav-link d-flex justify-start align-items-center w-100" type="submit">
                                 <i class="bi bi-box-arrow-in-right h5 my-0 pe-2"></i>
@@ -63,6 +63,9 @@
 @code {
     [Parameter]
     public string Class { get; set; } = "";
+
+    [Parameter, EditorRequired]
+    public string FormSuffix { get; set; }
 
     private void HandleLogin()
     {
