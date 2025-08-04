@@ -97,6 +97,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CookieAuthenticationStateProvider>();
 builder.Services.AddCascadingAuthenticationState();
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddHubOptions(options =>
@@ -105,9 +106,11 @@ builder.Services.AddRazorComponents()
         options.HandshakeTimeout = TimeSpan.FromSeconds(60);
     })
     .AddMicrosoftIdentityConsentHandler();
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICookieService, CookieService>();
 builder.Services.AddScoped<IUserRolesService, UserRolesService>();
+
 WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment() == false)
