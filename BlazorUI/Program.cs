@@ -94,6 +94,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddResponseCompression();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CookieAuthenticationStateProvider>();
 builder.Services.AddCascadingAuthenticationState();
@@ -102,8 +103,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddHubOptions(options =>
     {
-        options.ClientTimeoutInterval = TimeSpan.FromSeconds(120);
-        options.HandshakeTimeout = TimeSpan.FromSeconds(60);
+        options.ClientTimeoutInterval = TimeSpan.FromSeconds(60);
+        options.HandshakeTimeout = TimeSpan.FromSeconds(30);
     })
     .AddMicrosoftIdentityConsentHandler();
 
@@ -113,22 +114,21 @@ builder.Services.AddScoped<IUserRolesService, UserRolesService>();
 
 WebApplication app = builder.Build();
 
+app.UseExceptionHandler("/Error", createScopeForErrors: true);
+
 if (app.Environment.IsDevelopment() == false)
 {
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
     app.UseHsts();
+    app.UseResponseCompression();
 }
 
+app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseAntiforgery();
-
+app.MapStaticAssets();
 app.AddOidcAuthEndpoints();
-
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AllowAnonymous();
